@@ -1,90 +1,158 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# 🏢 API de Empresas e Produtos
 
-## Descrição
+API RESTful construída com **NestJS**, **Prisma** e **Mysql**, contendo rotas para gerenciamento de empresas e produtos vinculados.
 
-Esse template ultiliza [NestJS](https://nestjs.com/) para a construção de um Back-end organizado, estruturado e escalável para grandes projetos, juntamente com [Prisma](https://www.prisma.io/) para as interações com banco de dados.
+---
 
-...
+## 🚀 Endpoints
 
-## Instalação
+### 🔹 Criar uma empresa
 
-```bash
-$ npm install
+**POST** `/v1/companies`
+
+  - Cria uma nova empresa.
+
+**Requisição:**
+```json
+{
+  "name": "adidas",
+  "cnpj": "59546515000131"
+}
+```
+Respostas possíveis:
+
+- `201 Created`: empresa criada com sucesso.
+
+- `409 Conflict`: CNPJ já cadastrado.
+
+- `400 Bad Request`: campos inválidos ou ausentes.
+
+### 🔹 Listar todas as empresas
+**GET** `/v1/companies`
+
+  - Retorna uma lista de todas as empresas cadastradas.
+
+###🔹 Buscar empresa por ID
+**GET** `/v1/companies/:id`
+
+- Busca uma empresa pelo ID.
+
+- :id: número inteiro válido.
+
+Respostas:
+
+- `200 OK`: empresa encontrada.
+
+- `400 Bad Request`: ID inválido.
+
+- `404 Not Found`: empresa não encontrada.
+
+### 🔹 Buscar empresa por nome (filtro parcial)
+**GET** `/v1/companies/search/:name`
+
+Retorna empresas que contenham o nome fornecido.
+
+### 🔹 Listar produtos de uma empresa
+**GET** `/v1/companies/:id/products`
+
+- Retorna todos os produtos da empresa com ID informado.
+
+- Parâmetro opcional: ?name=produto para filtro por nome.
+
+### 🔹 Atualizar empresa
+**PATCH** `/v1/companies/:id`
+
+- Atualiza parcialmente os dados de uma empresa.
+
+Exemplo de body:
+
+```json
+{
+  "name": "umbro"
+}
 ```
 
-## Executando o APP
+Respostas:
 
-**Rodar local**
+- `200 OK`: empresa atualizada.
 
-```bash
-# Comentar a variável de ambiente na .env que se refere a rodar com Docker Compose.
+- `404 Not Found`: empresa não encontrada.
 
-DATABASE_URL=mysql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_DATABASE}
+- `400 Bad Request`: dados inválidos.
 
-# Cria as tabelas no banco.
-$ npx prisma db push
+### 🔹 Deletar empresa
+**DELETE** /v1/companies/:id
 
-# Executar os seeds.
-$ npm run seed
+- Remove uma empresa do sistema.
 
-# Comando para rodar em desenvolvimento (já executa o build).
-$ npm run start:dev
+Atenção: só é possível deletar empresas sem produtos vinculados.
 
-# Comando para rodar em produção (já executa o build).
-$ npm run start:prod
+Respostas:
+
+- `204 No Content`: empresa removida.
+
+- `400 Bad Request`: empresa possui produtos vinculados.
+
+- `404 Not Found`: empresa não encontrada.
+
+## 👟 Produtos
+### 🔹 Criar um produto
+**POST** `/v1/products`
+
+- Cria um novo produto vinculado a uma empresa.
+
+Exemplo de body:
+```json
+{
+  "name": "air jordan",
+  "price": 455.99,
+  "description": "Air force, Dunk, Air Max — A Tecnologia Que Você Precisa Para Melhorar Seus Resultados No Esporte. Compre Agora!",
+  "companyId": 2
+}
+```
+Respostas:
+
+- `201 Created`: produto criado.
+
+- `400 Bad Request`: dados inválidos ou empresa inexistente.
+
+### 🔹 Listar todos os produtos
+**GET** `/v1/products`
+
+- Retorna todos os produtos cadastrados.
+
+### 🔹 Buscar produto por ID
+**GET** /v1/products/:id
+
+- Retorna um produto pelo ID informado.
+
+🔹 Atualizar produto
+**PATCH** /v1/products/:id
+
+- Atualiza os dados de um produto.
+
+Exemplo de body:
+```json
+{
+  "name": "air max"
+}
 ```
 
-**Rodar via Docker Compose**
+### 🔹 Deletar produto
+**DELETE** `/v1/products/:id`
 
-```bash
-# Comentar a variável de ambiente na .env que se refere a rodar local.
+- Remove um produto pelo ID.
 
-DATABASE_URL=mysql://<user>:<password>@<host>:<db_port>/<db_name>
+## ✅ Validações
+- IDs são validados e convertidos para número usando ParseIntPipe no controlador;
+-  erros retornam 400 Bad Request.
+-  Campos obrigatórios são validados via DTOs com class-validator.
+-  CNPJ é único, e duplicatas retornam erro 409 Conflict.
+-  Empresas com produtos vinculados não podem ser deletadas (400 Bad Request).
 
-# Subir os containers.
-$ docker-compose up -d
-
-# Acessar o container.
-$ docker exec -it backend_application bash
-
-# Cria as tabelas no banco.
-$ npx prisma db push
-
-# Executar os seeds.
-$ npm run seed
-
-# Comando para rodar em desenvolvimento (já executa o build).
-$ npm run start:dev
-
-# Comando para rodar em produção (já executa o build).
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+📦 Tecnologias utilizadas
+- NestJS
+- Prisma ORM
+- MongoDB (via Prisma)
+- class-validator
+- TypeScript
