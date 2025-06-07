@@ -3,7 +3,7 @@ import { CompaniesService } from './companies.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { updateCompanyDto } from './dto/update-company.dto';
 import { IsPublic } from '../auth/decorators/is-public.decorator';
-import { ParseIdPipe } from '../products/pipes/parse-id.pipe';
+import { ParseIdPipe } from '../../pipes/parse-id.pipe';
 
 @IsPublic()
 @Controller('companies')

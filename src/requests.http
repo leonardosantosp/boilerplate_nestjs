@@ -48,10 +48,10 @@ Content-Type: application/json
 GET http://localhost:3001/v1/products
 
 ###
-GET http://localhost:3001/v1/products/3
+GET http://localhost:3001/v1/products/2
 
 ###
-PATCH http://localhost:3001/v1/products/3
+PATCH http://localhost:3001/v1/products/1
 Content-Type: application/json
 
 {
@@ -59,5 +59,5 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3001/v1/products/3
+DELETE http://localhost:3001/v1/products/2
 
