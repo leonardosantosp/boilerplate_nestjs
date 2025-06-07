@@ -1,3 +1,4 @@
+# Companies 
 ### Criar uma empresa
 POST http://localhost:3001/v1/companies
 Content-Type: application/json
@@ -11,7 +12,7 @@ Content-Type: application/json
 GET http://localhost:3001/v1/companies
 
 ###
-GET http://localhost:3001/v1/companies/1
+GET http://localhost:3001/v1/companies/2
 
 ###
 PATCH http://localhost:3001/v1/companies/1
@@ -23,3 +24,32 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3001/v1/companies/1
+
+###
+POST http://localhost:3001/v1/products
+Content-Type: application/json
+
+{
+  "name": "air force",
+  "price": 455.99,
+  "description": "Air force, Dunk, Air Max — A Tecnologia Que Você Precisa Para Melhorar Seus Resultados No Esporte. Compre Agora!",
+  "companyId": 2
+}
+
+###
+GET http://localhost:3001/v1/products
+
+###
+GET http://localhost:3001/v1/products/1
+
+###
+PATCH http://localhost:3001/v1/products/1
+Content-Type: application/json
+
+{
+  "name": "air max"
+}
+
+###
+DELETE http://localhost:3001/v1/products/1
+
