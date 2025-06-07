@@ -1,0 +1,25 @@
+### Criar uma empresa
+POST http://localhost:3001/v1/companies
+Content-Type: application/json
+
+{
+  "name": "nike",
+  "cnpj": "59546515000131",
+}
+
+###
+GET http://localhost:3001/v1/companies
+
+###
+GET http://localhost:3001/v1/companies/1
+
+###
+PATCH http://localhost:3001/v1/companies/1
+Content-Type: application/json
+
+{
+  "name": "adidas"
+}
+
+###
+DELETE http://localhost:3001/v1/companies/1
