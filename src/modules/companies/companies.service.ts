@@ -30,4 +30,9 @@ export class CompaniesService {
     await this.findOne(id);
     return this.prisma.company.delete({ where: { id: Number(id) } });
   }
+
+  async getProducts(id: number) {
+    await this.findOne(id);
+    return await this.prisma.product.findMany({ where: { companyId: Number(id) } });
+  }
 }

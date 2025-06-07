@@ -33,4 +33,9 @@ export class CompaniesController {
   remove(@Param('id') id: number) {
     return this.service.remove(id);
   }
+
+  @Get(':id/products')
+  getProducts(@Param('id') id: number) {
+    return this.service.getProducts(id);
+  }
 }
