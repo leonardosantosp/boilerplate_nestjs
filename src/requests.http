@@ -1,0 +1,63 @@
+### Criar uma empresa
+POST http://localhost:3001/v1/companies
+Content-Type: application/json
+
+{
+  "name": "adidas",
+  "cnpj": "59546515000131"
+}
+
+###
+GET http://localhost:3001/v1/companies
+
+###
+GET http://localhost:3001/v1/companies/2
+
+###
+GET http://localhost:3001/v1/companies/search/nike
+
+###
+GET http://localhost:3001/v1/companies/2/products
+
+###
+GET http://localhost:3001/v1/companies/2/products?name=air%20force%20max
+
+###
+PATCH http://localhost:3001/v1/companies/14
+Content-Type: application/json
+
+{
+  "name": "umbro"
+}
+
+###
+DELETE http://localhost:3001/v1/companies/14
+
+###
+POST http://localhost:3001/v1/products
+Content-Type: application/json
+
+{
+  "name": "air jordan",
+  "price": 455.99,
+  "description": "Air force, Dunk, Air Max — A Tecnologia Que Você Precisa Para Melhorar Seus Resultados No Esporte. Compre Agora!",
+  "companyId": 2
+}
+
+###
+GET http://localhost:3001/v1/products
+
+###
+GET http://localhost:3001/v1/products/3
+
+###
+PATCH http://localhost:3001/v1/products/3
+Content-Type: application/json
+
+{
+  "name": "air max"
+}
+
+###
+DELETE http://localhost:3001/v1/products/3
+
