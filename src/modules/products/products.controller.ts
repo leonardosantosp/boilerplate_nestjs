@@ -3,6 +3,7 @@ import { IsPublic } from '../auth/decorators/is-public.decorator';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { ParseIdPipe } from './pipes/parse-id.pipe';
 
 @IsPublic()
 @Controller('products')
@@ -20,17 +21,17 @@ export class ProductsController {
   }
 
   @Get(':id')
-  findOnde(@Param('id') id: number) {
-    return this.service.findaOne(id);
+  findOnde(@Param('id', ParseIdPipe) id: number) {
+    return this.service.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: number, @Body() data: UpdateProductDto) {
+  update(@Param('id', ParseIdPipe) id: number, @Body() data: UpdateProductDto) {
     return this.service.update(id, data);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
+  remove(@Param('id', ParseIdPipe) id: number) {
     return this.service.remove(id);
   }
 }
