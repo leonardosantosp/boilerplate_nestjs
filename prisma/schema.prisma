@@ -8,10 +8,13 @@ datasource db {
 }
 
 model Company {
-  id        Int       @id @default(autoincrement())
-  name      String
-  cnpj      String    @unique
-  createdAt DateTime  @default(now())
+  id             Int       @id @default(autoincrement())
+  name           String
+  cnpj           String    @unique
+  responsibleId  Int
+  responsible    User      @relation(fields: [responsibleId], references: [id])
+  createdAt      DateTime  @default(now())
+  Products       Product[]
 }
 
 model Product {
@@ -41,6 +44,7 @@ model User {
   updatedAt        DateTime          @updatedAt
   adminPermissions AdminPermission[]
   files            File[]
+  company          Company[]
 
   @@map("users")
 }
